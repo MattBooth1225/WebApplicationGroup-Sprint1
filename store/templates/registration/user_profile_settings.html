@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <h1>User Settings</h1>
+
+    <div id="userSettingsNav">
+        <ul>
+            <li><a href="{% url 'user-profile-settings' %}">Account Settings</a></li>
+            <li><a href="{% url 'user-profile-settings' %}">Shipping Address</a></li>
+            <li><a href="{% url 'user-profile-settings' %}">Payment Methods</a></li>
+            <li class="navNoBorder"><a href="{% url 'user-profile-settings' %}">Order History</a></li>
+        </ul>
+    </div>
+
+    <div class="form_container">
+        <h3>Account Information</h3>
+        <form action="">
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Your username..">
+
+            <label for="email">Email Address:</label>
+            <input type="text" id="email" name="useremail" placeholder="Your email..">
+
+            <label for="fname">First Name:</label>
+            <input type="text" id="fname" name="firstname" placeholder="Your first name..">
+
+            <label for="lname">Last Name:</label>
+            <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+
+            <input type="submit" value="Submit" class="purpleButton">
+
+        </form>
+
+        <hr>
+
+        <h3>Change Password</h3>
+        <form action="">
+            <label for="password">Current Password:</label>
+            <input type="text" id="password" name="currentpassword" placeholder="Current password...">
+
+
+            <label for="newpassword">New Password:</label>
+            <input type="text" id="newpassword" name="newpassword" placeholder="New password...">
+
+
+            <label for="newpasswordconfirm">Confirm New Password:</label>
+            <input type="text" id="newpasswordconfirm" name="newpasswordconfirm" placeholder="Re-type new password...">
+
+
+            <input type="submit" value="Submit" class="purpleButton">
+
+        </form>
+
+    </div>
+
+{% endblock content %}

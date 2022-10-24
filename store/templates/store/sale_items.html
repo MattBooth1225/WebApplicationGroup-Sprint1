@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Sale Items</h1>
+
+   <div class="product_container">
+        {% if product_list %}
+            {% for product in product_list %}
+
+                    <div class="product_card">
+                        <button class="wishlist_heart">&#10084;</button>
+
+                        <a href="{{ product.get_absolute_url }}">
+                            <!-- Insert product image code here -->
+
+                            <div class="product_info">
+                                <p><strong>{{ product.name }}</strong></p>
+                                <p>{{ "$" }}{{product.price}}</p>
+                                <button onclick="location.href='{{ product.get_absolute_url }}'">View Details</button>
+                            </div>
+
+                        </a>
+
+                    </div>
+            {% endfor %}
+        {% else %}
+            <p>There are no items on sale.</p>
+        {% endif %}
+    </div>
+
+{% endblock content %}

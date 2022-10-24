@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Product: {{ product.name }}</h1>
+
+    <p><strong>Price:</strong> {{ product.price }}</p>
+    <p><strong>In Stock:</strong> {{ book.summary }}</p>
+
+    <div style="margin-left:20px;margin-top:20px">
+        <h4>Instances</h4>
+
+        {% for instance in product.productinstance_set.all %}
+            <hr>
+            {% if not product.sold %}
+                <p><strong>{{ product.name }}</strong></p>
+                <p><strong>Product Number:</strong> {{ product.id }}</p>
+            {% endif %}
+
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

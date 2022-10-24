@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Music Store Home</h1>
+
+    <div id="galleryContainer">
+        <h2><i>New Arrivals</i></h2>
+
+        <div id="galleryElements">
+            <!-- LEFT Gallery Button -->
+            <div class="galleryButton">
+                <button>
+                    &#171;
+                </button>
+            </div>
+
+            <!-- Product Gallery -->
+            <div id="gallery">
+                <!-- Placeholder Image -->
+                <img src="/static/images/product_gallery_placeholder.PNG" style="width: 75%; display: block; margin: 25px auto;">
+            </div>
+
+            <!-- RIGHT Gallery Button -->
+            <div class="galleryButton">
+                <button>
+                    &#187;
+                </button>
+            </div>
+        </div>
+    
+    </div>
+
+    <button class="purpleButton" onclick="location.href='{% url 'all-products' %}'">
+        Start Shopping
+    </button>
+{% endblock content %}
