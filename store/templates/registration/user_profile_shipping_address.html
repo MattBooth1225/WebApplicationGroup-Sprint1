@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <h1>User Settings</h1>
+
+    <div id="userSettingsNav">
+        <ul>
+            <li><a href="{% url 'store:user-profile-settings' %}">Account Settings</a></li>
+            <li><a href="{% url 'store:user-profile-shipping-address' %}">Shipping Address</a></li>
+            <li><a href="{% url 'store:user-profile-payment-methods' %}">Payment Methods</a></li>
+            <li class="navNoBorder"><a href="{% url 'store:user-profile-order-history' %}">Order History</a></li>
+        </ul>
+    </div>
+
+    <div class="form_container">
+        <h3>Shipping Address</h3>
+        <form action="">
+
+            <label for="address1">Primary Address:</label>
+            <input type="text" id="address1" name="address1" placeholder="Your primary address..">
+
+            <label for="address2">Secondary Address:</label>
+            <input type="text" id="address2" name="address2" placeholder="Your secondary address..">
+
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" placeholder="Your city..">
+
+            <label for="state">State (Abbreviation):</label>
+            <input type="text" id="state" name="state" placeholder="Your state..">
+
+            <label for="zipcode">ZIP Code:</label>
+            <input type="text" id="zipcode" name="zipcode" placeholder="Your ZIP code..">
+
+            <input type="submit" value="Submit" class="purpleButton">
+
+        </form>
+
+{% endblock content %}

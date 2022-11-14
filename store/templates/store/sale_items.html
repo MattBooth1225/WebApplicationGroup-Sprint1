@@ -7,21 +7,24 @@
         {% if product_list %}
             {% for product in product_list %}
 
-                    <div class="product_card">
-                        <button class="wishlist_heart">&#10084;</button>
+                    {% if product.sale %}
+                        <!--saleprice()-->
+                        <div class="product_card">
+                            <button class="wishlist_heart">&#10084;</button>
 
-                        <a href="{{ product.get_absolute_url }}">
-                            <!-- Insert product image code here -->
+                                <a href="{{ product.get_absolute_url }}">
+                                <!-- Insert product image code here -->
 
-                            <div class="product_info">
-                                <p><strong>{{ product.name }}</strong></p>
-                                <p>{{ "$" }}{{product.price}}</p>
-                                <button onclick="location.href='{{ product.get_absolute_url }}'">View Details</button>
-                            </div>
+                                <div class="product_info">
+                                    <p><strong>{{ product.name }}</strong></p>
+                                    <p>{{ "$" }}{{product.price}}</p>
+                                    <button onclick="location.href='{{ product.get_absolute_url }}'">View Details</button>
+                                </div>
 
-                        </a>
+                                </a>
 
-                    </div>
+                        </div>
+                    {% endif %}
             {% endfor %}
         {% else %}
             <p>There are no items on sale.</p>

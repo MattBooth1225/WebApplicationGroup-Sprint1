@@ -8,32 +8,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-
+        <script src="https://kit.fontawesome.com/36a996c11f.js" crossorigin="anonymous"></script>
     </head>
 
     <body>
         <div id="siteTitle">
-            <a href="{% url 'index'  %}">
-                <img src="{% static 'images/logoFIXED.PNG' %}" alt="Music Memoir Logo">
+            <a href="{% url 'store:index'  %}">
+                <img src="{% static 'images/MM Logo White.png' %}" alt="Music Memoir Logo" style="width:250px; height:250px;">
             </a>
         </div>
 
         <div id="navMenu">
             {% block menu %}
                 <ul>
-                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'store:index' %}">Home</a></li>
                     <li>
-                        <a href="{% url 'all-products' %}">Shop</a>
+                        <a href="{% url 'store:all-products' %}">Shop</a>
                         <ul>
-                            <li><a href="{% url 'all-music' %}">All Music</a></li>
-                            <li><a href="{% url 'all-merch' %}">All Merch</a></li>
-                            <li><a href="{% url 'sales-items' %}">Sale Items</a></li>
+                            <li><a href="{% url 'store:all-music' %}">All Music</a></li>
+                            <li><a href="{% url 'store:all-merch' %}">All Merch</a></li>
+                            <li><a href="{% url 'store:sales-items' %}">Sale Items</a></li>
                         </ul>
                     </li>
-                    <li><a href="{% url 'contact-us' %}">Contact Us</a></li>
+                    <li><a href="{% url 'cart:cart_detail' %}">Shopping Cart</a></li>
                     {% if user.is_authenticated %}
-                        <li><a href="{% url 'wish-list' %}">Wish List</a></li>
-                        <li><a href="{% url 'user-profile-settings' %}">Profile Settings</a></li>
+                        <li><a href="{% url 'store:wish-list' %}">Wish List</a></li>
+                        <!--shopping cart button removed because it is causing issues atm-->
+                        <li><a href="{% url 'store:user-profile-settings' %}">Profile Settings</a></li>
                         <li><a href="{% url 'logout' %}">Logout</a></li>
                     {% else %}
                         <li><a href="{% url 'register' %}">Create Account</a></li>
@@ -72,17 +73,11 @@
 
         </div>
 
-        <script>
-            function openNavMenu() {
-                document.getElementById("navMenu").style.width = "300px";
-            }
-
-            function closeNavMenu() {
-                document.getElementById("navMenu").style.width = "0";
-            }
-
-        </script>
-
     </body>
+
+    <footer>
+        <hr>
+        <a href="{% url 'store:contact-us' %}">Contact Us</a>
+    </footer>
 
 </html>

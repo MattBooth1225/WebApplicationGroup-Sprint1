@@ -1,36 +1,41 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
+    <script defer src="{% static 'javascript/carousel.js'  %}"></script>
     <h1>Music Store Home</h1>
 
     <div id="galleryContainer">
-        <h2><i>New Arrivals</i></h2>
+        <h2 style="margin: 25px"><i>New Arrivals</i></h2>
 
-        <div id="galleryElements">
-            <!-- LEFT Gallery Button -->
-            <div class="galleryButton">
-                <button>
-                    &#171;
+        <!-- Product Gallery -->
+        <div class="carousel">
+            <div class="carousel-container">
+                <img class="carousel-item carousel-item-1" src="{% static 'images/SOAD_Steal_This_Album_CD.jpg' %}" loading="lazy" data-index="1">
+                <img class="carousel-item carousel-item-2" src="{% static 'images/Beartooth_Disgusting_Shirt.JPG' %}" loading="lazy" data-index="2">
+                <img class="carousel-item carousel-item-3" src="{% static 'images/GreenDay_American_Idiot_CD.jpg' %}" loading="lazy" data-index="3">
+                <img class="carousel-item carousel-item-4" src="{% static 'images/MCR_Black_Parade_Shirt.jpg' %}" loading="lazy" data-index="4">
+                <img class="carousel-item carousel-item-5" src="{% static 'images/MCR_Three_Cheers_Shirt.jpg' %}" loading="lazy" data-index="5">
+                <img class="carousel-item carousel-item-6" src="{% static 'images/Capitol_Vinyl.jpg' %}" loading="lazy" data-index="6">
+            </div>
+
+            <div class="carousel-controls">
+                <button class="carousel-control carousel-control-previous" data-name="previous">
+                    <span class="ax-hidden">previous</span>
                 </button>
-            </div>
-
-            <!-- Product Gallery -->
-            <div id="gallery">
-                <!-- Placeholder Image -->
-                <img src="/static/images/product_gallery_placeholder.PNG" style="width: 75%; display: block; margin: 25px auto;">
-            </div>
-
-            <!-- RIGHT Gallery Button -->
-            <div class="galleryButton">
-                <button>
-                    &#187;
+                <button class="carousel-control carousel-control-play" data-name="play">
+                    <span class="ax-hidden">play</span>
                 </button>
-            </div>
-        </div>
-    
+                <button class="carousel-control carousel-control-next" data-name="next">
+                    <span class="ax-hidden">next</span>
+                </button>
+          </div>
+</div>
+
     </div>
 
-    <button class="purpleButton" onclick="location.href='{% url 'all-products' %}'">
+    <button class="purpleButton" onclick="location.href='{% url 'store:all-products' %}'">
         Start Shopping
     </button>
+
 {% endblock content %}

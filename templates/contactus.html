@@ -4,31 +4,55 @@
 {% block content %}
 
     <div class="form_container">
-        <h2>Contact Us</h2>
+        <h2 style="margin-bottom: 50px">Contact Us</h2>
 
-        <form action="">
+        <p>
+            Fill out the form below to contact us directly if you have any questions, comments, or concerns.
+            Please provide your name, email address, and your message.
+            A member of our staff will respond shortly.
+        </p>
 
-            <label for="fname">First Name</label>
-            <input type="text" id="fname" name="firstname" placeholder="Your name..">
+        <form method="post">
+            {% csrf_token %}
 
-            <label for="lname">Last Name</label>
-            <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+            <label for="name">Name</label>
+            <input name="name" type="text" class="form-container" id="name" placeholder="Your name...">
 
-            <label for="email">Email</label>
-            <input type="text" id="email" name="contemail" placeholder="Your email..">
+            <label for="email">E-mail</label>
+            <input name="email" type="email" class="form_container" id="email" placeholder="Your e-mail...">
 
-            <label for="subject">Subject</label>
-            <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+            <label for="message">Message</label>
+            <textarea name="message" id="message" rows="20" placeholder="What's on your mind..."></textarea>
 
-            <input type="submit" value="Submit" class="purpleButton">
-
+            <button type="submit" class="purpleButton">Submit</button>
         </form>
+
     </div>
 
-    <footer>
-        <hr>
-        <a href="https://www.facebook.com">Facebook</a>
-        <a href="https://www.instagram.com">Instagram</a>
-    </footer>
+    <div id="info_container">
+        <div>
+            <h2>Contact Information</h2>
+            <a class="media_icon" href="mailto: musicmemoirwam@gmail.com" target="_blank">
+                <i class="fa-regular fa-envelope fa-2x"></i>
+                <span class="media_icon_text"><b>Email:</b> musicmemoirwam@gmail.com</span>
+            </a>
+            <a class="media_icon" href="tel:4028075039" target="_blank">
+                <i class="fa-solid fa-square-phone fa-2x"></i>
+                <span class="media_icon_text"><b>Phone:</b> (402) 807-5039</span>
+            </a>
+        </div>
+
+        <div>
+            <h2>Follow Us on Social Media</h2>
+            <a class="media_icon" href="https://www.facebook.com" target="_blank">
+                <i class="fa-brands fa-facebook-f fa-2x"></i>
+                <span class="media_icon_text">Facebook</span>
+            </a>
+            <a class="media_icon" href="https://www.instagram.com" target="_blank">
+                <i class="fa-brands fa-instagram fa-2x"></i>
+                <span class="media_icon_text">Instagram</span>
+            </a>
+        </div>
+    </div>
 
 {% endblock content %}

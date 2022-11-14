@@ -3,6 +3,12 @@
 /****************************************************************************************************
 * Base HTML Elements                                                                                *
 ****************************************************************************************************/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 
 /* Establishes how the body will be displayed */
 body {
@@ -70,14 +76,26 @@ p {
 
 /* Establishes how footer elements will be displayed */
 footer {
-    margin-top: 150px;
-    text-align: right;
-    padding: 5px 25px 10px 25px;
+    margin: 150px 0 50px 0;
+    padding: 0 50px;
+    text-align: center;
+}
+
+footer hr {
+    margin-bottom: 50px;
 }
 
 /* Establishes how footer link elements will be displayed */
 footer a {
-    color: #d5ccff;
+    color: #4d50eb;
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #4787ff;
+    text-decoration: underline;
 }
 
 /* Styles inputs with type="text", select elements and textareas */
@@ -137,81 +155,6 @@ input[type=text], input[type=email], input[type=password], select, textarea {
     color: #c7cdd9;
 }
 
-/* Container for the contents of a store page */
-.product_container {
-    display: block;
-    padding: 50px;
-    width: 90%;
-    margin: auto;
-}
-
-/* Establishes how products are displayed on shopping pages */
-.product_card {
-    width: 250px;
-    height: 250px;
-    position: relative;
-    display: inline-block;
-    margin: 25px;
-    background-image: linear-gradient(to bottom, #426bff 0%, #1f1f1f 5%, #141414 100%);
-}
-
-/* Removes text decoration from product card links */
-.product_card a {
-    text-decoration: none;
-}
-
-/* Establishes the position & style of the product information (name, price, quantity, & 'view details' button) */
-.product_card .product_info {
-    width: 100%;
-    position: relative;
-    bottom: -105px;
-    text-align: center;
-    line-height: 50%;
-    margin: 10px auto;
-}
-
-.product_card .product_info button {
-    background-image: linear-gradient(to right, #5121ff 0%, #4d50eb 35%, #3D51FF 55%, #54B5FF 100%);
-    margin: auto;
-    padding: 5px 10px;
-    text-align: center;
-    font-weight: bolder;
-    font-size: 10pt;
-    color: #1a1a1a;
-    transition: 0.5s;
-    background-size: 200% auto;
-    border: 0;
-    border-radius: 10px;
-    display: block;
-}
-
-.product_card .product_info button:hover {
-    background-position: 100% 0;
-    -o-transition: all .4s ease-in-out;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
-    color: #c7cdd9;
-}
-
-/* Establishes the position & default style of the wishlist heart button */
-.wishlist_heart {
-    position: relative;
-    top: 3px;
-    right: -205px;
-    font-size: 24pt;
-    margin: 0;
-    background-color: transparent;
-    border: 0;
-}
-
-/* Changes the color of the wishlist heart button when hovered over */
-.wishlist_heart:hover {
-    background: linear-gradient(to bottom right, #54B5FF 0%, #3D51FF 35%, #4d50eb 55%, #5121ff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    cursor: pointer;
-}
-
 /* Container for form contents that establishes how they are displayed */
 .form_container {
     width: 50%;
@@ -230,12 +173,15 @@ input[type=text], input[type=email], input[type=password], select, textarea {
     margin-top: 50px;
 }
 
+.form_container input, textarea {
+    color: black;
+}
+
 /* Adds extra padding to form hr elements */
 .form_container hr {
     margin-top: 100px;
     margin-bottom: 100px;
 }
-
 
 /****************************************************************************************************
 * ID Specific Elements (Starts with '#')                                                            *
@@ -251,16 +197,22 @@ input[type=text], input[type=email], input[type=password], select, textarea {
     display: block;
 }
 
-
 /* Establishes the position of the navigation menu bar */
 #navMenu {
     width: 100%;
+    top: 200px;
     margin: 50px auto;
     display: flex;
     justify-content: center;
     position: absolute;
     overflow: hidden;
     white-space: nowrap;
+}
+
+@media only screen and (max-width:1200px) {
+  #navMenu {
+      top: 275px;
+  }
 }
 
             /* Level 1 of Nav Bar */
@@ -336,7 +288,7 @@ input[type=text], input[type=email], input[type=password], select, textarea {
    (does not include: navigation bar, site header [logo & title])
 */
 #pageContent {
-    margin: 150px 25px 25px 25px;
+    margin: 125px 25px 25px 25px;
     display: block;
 }
 
@@ -346,27 +298,203 @@ input[type=text], input[type=email], input[type=password], select, textarea {
     * index.html Elements                                       *
     ************************************************************/
 
-/* This container holds the gallery header & the gallery elements div */
+/* This container holds the gallery header & the gallery carousel + carousel controls */
 #galleryContainer {
     width: 75%;
     min-width: 500px;
-    margin: auto;
+    margin: 100px auto 50px auto;
     padding: 25px 35px 50px 35px;
     background-color: #111111;
 }
 
-/* This container holds the gallery window & the left/right navigation buttons - they are centered vertically within this div */
-#galleryContainer #galleryElements {
+/* Hides the option text on carousel control buttons */
+.ax-hidden {
+    visibility: hidden;
+    position: absolute;
+}
+
+/* carousel styles */
+.carousel {
+    --carousel-height: 400px;
+    --carousel-width: 700px;
+    --carousel-item-height: 200px;
+    --carousel-item-width: 200px;
+
+    background-color: #111111;
+    width: 90%;
+    overflow: hidden;
+    margin: auto;
+}
+
+@media only screen and (max-width:1200px) {
+    .carousel {
+        --carousel-width: 500px;
+        --carousel-item-height: 150px;
+        --carousel-item-width: 150px;
+    }
+}
+
+@media only screen and (max-width:875px) {
+    .carousel {
+        --carousel-width: 300px;
+        --carousel-item-height: 100px;
+        --carousel-item-width: 100px;
+    }
+}
+
+.carousel-container {
+    background-color: #111111;
+    position: relative;
     display: flex;
     align-items: center;
+    width: var(--carousel-width);
+    min-height: var(--carousel-height);
+    overflow: hidden;
+    margin: auto;
 }
 
-/* The gallery's left & right arrow buttons */
-#galleryContainer #galleryElements .galleryButton {
-    display: inline-block;
-    margin: auto 10px;
+.carousel-item {
+    height: var(--carousel-item-height);
+    opacity: 0;
+    position: absolute;
+    transform: translateX(-50%);
+    transition: all 0.5s ease-in-out;
+    width: var(--carousel-item-width);
+    z-index: 0;
 }
 
+.carousel-item-1,
+.carousel-item-3 {
+    width: calc(var(--carousel-item-width) * 0.75);
+    height: calc(var(--carousel-item-height) * 0.75);
+    opacity: 1;
+    z-index: 1;
+}
+
+.carousel-item-1 {
+    left: 0%;
+    transform: perspective(200px) rotate3d(0, 1, 0, -30deg);
+}
+
+.carousel-item-2 {
+    left: 50%;
+    z-index: 2;
+    width: var(--carousel-item-width);
+    height: var(--carousel-item-height);
+    opacity: 1;
+    box-shadow: 0 0 100px rgba(77, 80, 235, 0.7);
+}
+
+.carousel-item-3 {
+    left: 77%;
+    transform: perspective(200px) rotate3d(0, 1, 0, 30deg);
+}
+
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+/* carousel button styles */
+.carousel-control {
+    background-color: transparent;
+    border: 2px solid;
+    border-radius: 4px;
+    color: #aaa;
+    cursor: pointer;
+    height: 22px;
+    margin: 0 20px;
+    position: relative;
+    transform: scale(1.5);
+    transition: transform 0.5s ease-out;
+    width: 22px;
+}
+
+.carousel-control:hover {
+    transform: scale(1.3);
+}
+
+/* previous button */
+.carousel-control-previous::after,
+.carousel-control-previous::before {
+    box-sizing: border-box;
+    content: '';
+    display: block;
+    height: 8px;
+    position: absolute;
+    top: 5px
+}
+.carousel-control-previous::before {
+    background: currentColor;
+    border-radius: 2px;
+    right: 11px;
+    width: 2px;
+}
+.carousel-control-previous::after {
+    border-bottom: 4px solid transparent;
+    border-right: 5px solid;
+    border-top: 4px solid transparent;
+    right: 5px;
+    width: 0;
+}
+
+/* next button */
+.carousel-control-next::after,
+.carousel-control-next::before {
+    box-sizing: border-box;
+    content: "";
+    display: block;
+    height: 8px;
+    position: absolute;
+    top: 5px
+}
+.carousel-control-next::before {
+    background: currentColor;
+    border-radius: 2px;
+    left: 11px;
+    width: 2px;
+}
+.carousel-control-next::after {
+    border-bottom: 4px solid transparent;
+    border-left: 5px solid;
+    border-top: 4px solid transparent;
+    left: 5px;
+    width: 0;
+}
+
+/* play button */
+.carousel-control-play::before {
+    border-bottom: 5px solid transparent;
+    border-left: 6px solid;
+    border-top: 5px solid transparent;
+    box-sizing: border-box;
+    content: "";
+    display: block;
+    height: 10px;
+    position: absolute;
+    left: 7px;
+    top: 4px;
+    width: 0;
+}
+
+/* pause button */
+.carousel-control-play.playing::before {
+    border-bottom: 0;
+    border-left: 2px solid;
+    border-right: 2px solid;
+    border-top: 0;
+    box-sizing: border-box;
+    content: "";
+    display: block;
+    height: 6px;
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    width: 6px;
+}
+
+/*
 #galleryContainer #galleryElements .galleryButton button {
     background: linear-gradient(to bottom right, #54B5FF 0%, #3D51FF 35%, #4d50eb 55%, #5121ff 100%);
     -webkit-background-clip: text;
@@ -382,12 +510,195 @@ input[type=text], input[type=email], input[type=password], select, textarea {
     -webkit-text-fill-color: transparent;
     cursor: pointer;
 }
+ */
 
-/* The window within the gallery that actually holds the items on display */
-#galleryContainer #galleryElements #gallery {
+
+    /************************************************************
+    * product_list.html & wishlist.html Elements                *
+    ************************************************************/
+
+/* Container for the contents of a store page */
+.product_container {
+    display: block;
+    padding: 50px;
     width: 90%;
+    margin: auto;
+}
+
+/* Establishes how products are displayed on shopping pages */
+.product_card {
+    width: 300px;
+    height: 400px;
+    position: relative;
     display: inline-block;
+    margin: 25px;
+    background-image: linear-gradient(to bottom, #426bff 0%, #1f1f1f 5%, #141414 100%);
+}
+
+/* Removes text decoration from product card links */
+.product_card a {
+    text-decoration: none;
+}
+
+.product_card img {
+    display: block;
+    width: 200px;
+    height: 200px;
+    margin: 15px auto 15px auto;
+}
+
+/* Establishes the position & style of the product information (name, price, quantity, & 'view details' button) */
+.product_card .product_info {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    line-height: 2em;
+    margin: 10px auto;
+}
+
+.product_card .product_info button {
+    background-image: linear-gradient(to right, #5121ff 0%, #4d50eb 35%, #3D51FF 55%, #54B5FF 100%);
+    margin: 15px auto 0 auto;
+    padding: 5px 10px;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 10pt;
+    color: #1a1a1a;
+    transition: 0.5s;
+    background-size: 200% auto;
+    border: 0;
+    border-radius: 10px;
+    display: block;
+}
+
+.product_card .product_info button:hover {
+    background-position: 100% 0;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    color: #c7cdd9;
+}
+
+/* Establishes the position & default style of the wishlist heart button */
+.wishlist_heart {
+    position: relative;
+    top: 3px;
+    right: -255px;
+    display: block;
+    font-size: 24pt;
+    margin: 0;
+    background-color: transparent;
+    border: 0;
+}
+
+/* Changes the color of the wishlist heart button when hovered over */
+.wishlist_heart:hover {
+    background: linear-gradient(to bottom right, #54B5FF 0%, #3D51FF 35%, #4d50eb 55%, #5121ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+}
+
+
+
+    /************************************************************
+    * product_detail.html Elements                              *
+    ************************************************************/
+
+/*  */
+#prod_detail_container {
+    width: 50%;
+    min-width: 600px;
+    margin: 0 auto;
+}
+
+#prod_detail_container .prod_info {
+    width: 400px;
+    display: block;
+    margin: 50px auto;
+    text-align: center;
+}
+
+#prod_detail_container .prod_info p {
+    color: white;
+    padding: 25px 0 0;
+}
+
+#prod_detail_container .prod_info label {
+    color: white;
+    font-weight: bold;
+    padding: 75px 0 0;
+}
+
+#prod_detail_container .prod_info #id_quantity {
+    width: 100px;
+}
+
+
+
+    /************************************************************
+    * cart_details.html Elements                                *
+    ************************************************************/
+
+/* */
+#cart_container {
+    display: flex;
+    justify-content: center;
+    margin: 100px auto 50px auto;
+}
+
+.cart {
+    background-color: rgba(235, 235, 235, 85%);
+}
+
+.cart th {
+    padding: 25px 50px 0;
+}
+
+.cart td {
+    padding: 0 50px;
+}
+
+.cart .cart_option_button {
+    text-align: center;
+}
+
+.cart hr {
+    height: 1px;
+    width: 100%;
     margin: 25px auto;
+    background-color: #1c1c1c !important;
+    color: #1c1c1c;
+    border-width: 0;
+}
+
+.total td {
+    padding: 0 50px 50px;
+}
+
+
+    /************************************************************
+    * contactus.html Elements                                   *
+    ************************************************************/
+
+/* */
+#info_container {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 150px;
+}
+
+/*  */
+.media_icon {
+    display: block;
+    margin: 25px 0;
+    text-decoration: none;
+    color: white;
+}
+
+.media_icon_text {
+    font-size: 24px;
+    padding-left: 25px;
 }
 
 
@@ -458,4 +769,24 @@ input[type=text], input[type=email], input[type=password], select, textarea {
 /* Changes the text color of nav bar links when hovered over */
 #userSettingsNav a:hover{
     color: #c7cdd9;
+}
+
+/* Formatting for Payment Information Table */
+.payment_table {
+    width: 75%;
+    alignment: center;
+    border-collapse: collapse;
+    border: 4px #4d50eb;
+}
+
+/* Formatting for the text box in Contact Us */
+.textarea {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
 }

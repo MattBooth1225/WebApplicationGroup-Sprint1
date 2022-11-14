@@ -1,23 +1,40 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Product: {{ product.name }}</h1>
+    <div id="prod_detail_container">
+        <h1>{{ product.name }}</h1>
 
-    <p><strong>Price:</strong> {{ product.price }}</p>
-    <p><strong>In Stock:</strong> {{ book.summary }}</p>
+        <div class="prod_info">
+            <!-- Replace placeholder image w/ real product image link -->
+            <img src="http://fakeimg.pl/300/?text=1" alt="">
 
-    <div style="margin-left:20px;margin-top:20px">
-        <h4>Instances</h4>
+            <p><strong>Price:</strong> {{ product.price }}</p>
+            <p><strong>Units In Stock:</strong>  </p>     <!-- Insert variable to display product quantity in stock -->
 
-        {% for instance in product.productinstance_set.all %}
-            <hr>
-            {% if not product.sold %}
-                <p><strong>{{ product.name }}</strong></p>
-                <p><strong>Product Number:</strong> {{ product.id }}</p>
-            {% endif %}
+            <form action="{% url "cart:cart_add" product.id %}" method="post">
+                {{ cart_product_form }}
+                {% csrf_token %}
+                <input type="submit" value="Add to cart" class="purpleButton">
+            </form>
+        </div>
 
-        {% endfor %}
 
+
+
+        <div style="margin-left:20px;margin-top:20px">
+            <h4>Instances</h4>
+
+            {% for instance in product.productinstance_set.all %}
+                <hr>
+                {% if not product.sold %}
+                    <p><strong>{{ product.name }}</strong></p>
+                    <p><strong>Product Number:</strong> {{ product.id }}</p>
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
     </div>
+
 
 {% endblock %}

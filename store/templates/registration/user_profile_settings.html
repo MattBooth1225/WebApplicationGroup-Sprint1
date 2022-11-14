@@ -7,10 +7,10 @@
 
     <div id="userSettingsNav">
         <ul>
-            <li><a href="{% url 'user-profile-settings' %}">Account Settings</a></li>
-            <li><a href="{% url 'user-profile-settings' %}">Shipping Address</a></li>
-            <li><a href="{% url 'user-profile-settings' %}">Payment Methods</a></li>
-            <li class="navNoBorder"><a href="{% url 'user-profile-settings' %}">Order History</a></li>
+            <li><a href="{% url 'store:user-profile-settings' %}">Account Settings</a></li>
+            <li><a href="{% url 'store:user-profile-shipping-address' %}">Shipping Address</a></li>
+            <li><a href="{% url 'store:user-profile-payment-methods' %}">Payment Methods</a></li>
+            <li class="navNoBorder"><a href="{% url 'store:user-profile-order-history' %}">Order History</a></li>
         </ul>
     </div>
 

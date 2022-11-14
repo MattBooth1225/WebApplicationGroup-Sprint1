@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <h1>Your Shopping Cart</h1>
+
+    <div id="cart_container">
+
+        <table class="cart">
+            <!-- Table Headers -->
+            <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Remove</th>
+                <th>Unit price</th>
+                <th>Price</th>
+            </tr>
+
+            <!-- Table Contents -->
+            {% for item in cart %}
+                {% with product=item.product %}
+                    <tr>
+                        <td colspan="6">
+                            <hr>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <a href="{{ product.get_absolute_url }}">
+                                <!--Eventually image link will go here for product-->
+                            </a>
+                        </td>
+                        <td>{{ product.name }}</td>
+                        <td class="cart_option_button">
+                            <form action="{% url "cart:cart_add" product.id %}" method="post">
+                                {{ item.update_quantity_form.quantity }}
+                                {{ item.update_quantity_form.update }}
+                                <input type="submit" value="Update">
+                                {% csrf_token %}
+                            </form>
+                        </td>
+                        <td class="cart_option_button"><a href="{% url "cart:cart_remove" product.id %}">Remove</a></td>
+                        <td class="num">${{ item.price }}</td>
+                        <td class="num">${{ item.total_price }}</td>
+                    </tr>
+
+                {% endwith %}
+            {% endfor %}
+
+            <tr>
+                <td colspan="6" style="padding-bottom: 25px">
+                    <hr>
+                </td>
+            </tr>
+
+            <!-- Cart Total -->
+            <tr class="total">
+                <td>Total</td>
+                <td colspan="4"></td>
+                <td class="num">${{ cart.get_total_price }}</td>
+            </tr>
+        </table>
+
+    </div>
+
+{% endblock %}

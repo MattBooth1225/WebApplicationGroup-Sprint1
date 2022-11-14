@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <h1>User Settings</h1>
+
+    <div id="userSettingsNav">
+        <ul>
+            <li><a href="{% url 'store:user-profile-settings' %}">Account Settings</a></li>
+            <li><a href="{% url 'store:user-profile-shipping-address' %}">Shipping Address</a></li>
+            <li><a href="{% url 'store:user-profile-payment-methods' %}">Payment Methods</a></li>
+            <li class="navNoBorder"><a href="{% url 'store:user-profile-order-history' %}">Order History</a></li>
+        </ul>
+    </div>
+
+    <div class="form_container">
+        <h3>Order History</h3>
+        <table class="payment_table">
+            <thead>
+            <tr>
+                <th>Order Number</th>
+                <th>Shipping Address</th>
+                <th>Payment Methods</th>
+                <th>Shipping Status</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+
+{% endblock content %}
