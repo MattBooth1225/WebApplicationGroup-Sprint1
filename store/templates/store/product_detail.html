@@ -5,35 +5,24 @@
         <h1>{{ product.name }}</h1>
 
         <div class="prod_info">
-            <!-- Replace placeholder image w/ real product image link -->
-            <img src="http://fakeimg.pl/300/?text=1" alt="">
+            <img src="{{ product.image.image.url }}" alt="">
 
             <p><strong>Price:</strong> {{ product.price }}</p>
-            <p><strong>Units In Stock:</strong>  </p>     <!-- Insert variable to display product quantity in stock -->
 
             <form action="{% url "cart:cart_add" product.id %}" method="post">
                 {{ cart_product_form }}
                 {% csrf_token %}
-                <input type="submit" value="Add to cart" class="purpleButton">
+                <input type="submit" value="Add to cart" class="purple_button">
             </form>
-        </div>
-
-
-
-
-        <div style="margin-left:20px;margin-top:20px">
-            <h4>Instances</h4>
-
-            {% for instance in product.productinstance_set.all %}
-                <hr>
-                {% if not product.sold %}
-                    <p><strong>{{ product.name }}</strong></p>
-                    <p><strong>Product Number:</strong> {{ product.id }}</p>
-                {% endif %}
-
-            {% endfor %}
+            <br>
+            <form action="{% url "wish:wish_add" product.id %}" method="post">
+                {{ cart_product_form }}
+                {% csrf_token %}
+                <input type="submit" value="Add to wishlist" class="purple_button">
+            </form>
 
         </div>
+
     </div>
 
 

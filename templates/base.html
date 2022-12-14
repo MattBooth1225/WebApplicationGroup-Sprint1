@@ -8,43 +8,76 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-        <script src="https://kit.fontawesome.com/36a996c11f.js" crossorigin="anonymous"></script>
     </head>
 
     <body>
-        <div id="siteTitle">
+        <marquee direction="left" scrollamount="20">This scrolling marquee can show the latest announcements</marquee>
+
+        <div id="site_title">
             <a href="{% url 'store:index'  %}">
                 <img src="{% static 'images/MM Logo White.png' %}" alt="Music Memoir Logo" style="width:250px; height:250px;">
             </a>
         </div>
 
-        <div id="navMenu">
+        <div id="nav_menu">
             {% block menu %}
                 <ul>
-                    <li><a href="{% url 'store:index' %}">Home</a></li>
+                    <li><a href="{% url 'store:index' %}" title="Shop Homepage">Home</a></li>
                     <li>
-                        <a href="{% url 'store:all-products' %}">Shop</a>
-                        <ul>
-                            <li><a href="{% url 'store:all-music' %}">All Music</a></li>
-                            <li><a href="{% url 'store:all-merch' %}">All Merch</a></li>
-                            <li><a href="{% url 'store:sales-items' %}">Sale Items</a></li>
-                        </ul>
+                        <a href="{% url 'store:prod_list' %}" title="Shop All Products">Shop</a>
                     </li>
-                    <li><a href="{% url 'cart:cart_detail' %}">Shopping Cart</a></li>
+                    <li class="search">
+                        <form method="post" action="{% url 'store:search-products' %}">
+                            {% csrf_token %}
+
+                            <input type="search" placeholder="Search Products" name="searched">
+                            <button type="submit" class="search_button">
+                                <img src="{% static 'images/search_icon.png' %}" alt="">
+                                <img src="{% static 'images/search_icon_white.png' %}" alt="">
+                            </button>
+                        </form>
+                    </li>
+
+                    <li><div id="nav_menu_spacer"></div></li>
+
+                    <li><a href="{% url 'cart:cart_detail' %}" title="Your Shopping Cart">
+                        <img src="{% static 'images/shopping_cart_icon.png' %}" alt="">
+                        <img src="{% static 'images/shopping_cart_icon_white.png' %}" alt="">
+                    </a></li>
+
                     {% if user.is_authenticated %}
-                        <li><a href="{% url 'store:wish-list' %}">Wish List</a></li>
-                        <!--shopping cart button removed because it is causing issues atm-->
-                        <li><a href="{% url 'store:user-profile-settings' %}">Profile Settings</a></li>
-                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                        <li><a href="{% url 'wish:wish_detail' %}" title="Your Wish List" style="font-size: 20px">
+                            <img src="{% static 'images/wishlist_icon.png' %}" alt="">
+                            <img src="{% static 'images/wishlist_icon_white.png' %}" alt="">
+                        </a></li>
+
+                        <li class="nav_no_border">
+                            <a href="{% url 'store:user-profile-settings' %}" title="Your Profile">
+                                <img src="{% static 'images/user_profile_icon.png' %}" alt="">
+                                <img src="{% static 'images/user_profile_icon_white.png' %}" alt="">
+                            </a>
+                            <ul>
+                                <li><a href="{% url 'store:user-profile-settings' %}" title="User Settings">Settings</a></li>
+                                <li><a href="{% url 'logout' %}" title="Logout">Logout</a></li>
+                            </ul>
+                        </li>
                     {% else %}
-                        <li><a href="{% url 'register' %}">Create Account</a></li>
-                        <li><a href="{% url 'login' %}">Login</a></li>
+                        <li class="nav_no_border">
+                            <a href="{% url 'login' %}" title="Your Profile">
+                                <img src="{% static 'images/user_profile_icon.png' %}" alt="">
+                                <img src="{% static 'images/user_profile_icon_white.png' %}" alt="">
+                            </a>
+                            <ul>
+                                <li><a href="{% url 'register' %}" title="Create an Account">Sign Up</a></li>
+                                <li><a href="{% url 'login' %}" title="Login to Your Account">Login</a></li>
+                            </ul>
+                        </li>
                     {% endif %}
                 </ul>
             {% endblock %}
         </div>
 
-        <div id="pageContent">
+        <div id="page_content">
             {% block content %}{% endblock %}
 
             {% block pagination %}

@@ -5,38 +5,39 @@
 
     <h1>User Settings</h1>
 
-    <div id="userSettingsNav">
+    <div id="user_settings_nav">
         <ul>
             <li><a href="{% url 'store:user-profile-settings' %}">Account Settings</a></li>
             <li><a href="{% url 'store:user-profile-shipping-address' %}">Shipping Address</a></li>
             <li><a href="{% url 'store:user-profile-payment-methods' %}">Payment Methods</a></li>
-            <li class="navNoBorder"><a href="{% url 'store:user-profile-order-history' %}">Order History</a></li>
+            <!-- <li class="navNoBorder"><a href="{#% url 'store:user-profile-order-history' %#}">Order History</a></li> -->
         </ul>
     </div>
 
     <div class="form_container">
-        <h3>Account Information</h3>
-        <form action="">
+        <h2>Account Information</h2>
 
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" placeholder="Your username..">
+        <form action="" method="post" class="form_contents">
+            {% csrf_token %}
 
             <label for="email">Email Address:</label>
-            <input type="text" id="email" name="useremail" placeholder="Your email..">
+            <input type="text" id="email" name="email" placeholder="Your email..">
 
             <label for="fname">First Name:</label>
-            <input type="text" id="fname" name="firstname" placeholder="Your first name..">
+            <input type="text" id="fname" name="fname" placeholder="Your first name..">
 
             <label for="lname">Last Name:</label>
-            <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+            <input type="text" id="lname" name="lname" placeholder="Your last name..">
 
-            <input type="submit" value="Submit" class="purpleButton">
+            <input type="submit" value="Submit" class="purple_button">
 
         </form>
 
-        <hr>
+        <!-- Commented Out Entire password section, probably just going to use external page -->
 
-        <h3>Change Password</h3>
+        <!-- <hr> -->
+
+       <!-- <h2>Change Password</h2>
         <form action="">
             <label for="password">Current Password:</label>
             <input type="text" id="password" name="currentpassword" placeholder="Current password...">
@@ -50,9 +51,9 @@
             <input type="text" id="newpasswordconfirm" name="newpasswordconfirm" placeholder="Re-type new password...">
 
 
-            <input type="submit" value="Submit" class="purpleButton">
+            <input type="submit" value="Submit" class="purple_button">
 
-        </form>
+        </form> -->
 
     </div>
 

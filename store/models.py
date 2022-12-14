@@ -1,11 +1,11 @@
 from django.db import models
 from django.urls import reverse
 import uuid
+from django.conf import settings
+from django.forms import ModelForm
 from django.utils import timezone
 from datetime import date
 from django.contrib.auth.models import User
-from django.conf import settings
-from django.forms import ModelForm
 
 
 # Newsletter Class
@@ -30,6 +30,18 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('store:product_list_by_category',
+                       args=[self.slug])
+
+
+class ProductImage(models.Model):
+    title = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='', blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
 
 # Product Related Classes
 class Product(models.Model):
@@ -38,12 +50,12 @@ class Product(models.Model):
     slug = models.SlugField(max_length=200, db_index=True)
     price = models.DecimalField(max_digits=10,
                                 decimal_places=2)  # Want to change to more specific field for cost in future
+    image = models.OneToOneField('ProductImage', on_delete=models.CASCADE)
     desc = models.TextField(blank=True)
     sale = models.BooleanField(default=False)
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    image = models.ImageField(upload_to=None, height_field=None, width_field=None, blank=True, null=True)
 
     def saleprice(self):
         if self.sale == True:
@@ -106,8 +118,8 @@ class WishList(models.Model):
 
 # Currently trying to use Profile Class as way to edit more in depth user information
 class Profile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    profile_email = models.CharField(max_length=200, default="a@a")
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None, null=False, primary_key=True)
+    profile_email = models.EmailField(max_length=200, default="a@a")
     profile_fname = models.CharField(max_length=200, default="firstname")
     profile_lname = models.CharField(max_length=200, default="lastname")
     profile_addressMain = models.CharField(max_length=200, default="a")
@@ -115,6 +127,12 @@ class Profile(models.Model):
     profile_city = models.CharField(max_length=200, default="Omaha")
     profile_state = models.CharField(max_length=2, default="NE")
     profile_zipcode = models.IntegerField(default=68022)
+    profile_cardnum = models.IntegerField(default=0)
+    profile_exp_date = models.CharField(max_length=5, default='00/00')
+    profile_sec_code = models.IntegerField(default=123)
+
+    def get_user_fname(self):
+        return self.profile_fname
 
 
 # Form for changing settings on profile_settings page

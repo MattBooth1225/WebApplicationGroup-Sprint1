@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+    <div id="product_page_container">
+        <div id="product_category_sidebar">
+            <h6>Categories</h6>
+
+            <hr>
+
+            <ul>
+                <li {% if not category %}class="selected"{% endif %}>
+                    <a style="color:black;"href="{% url "store:prod_list" %}">All</a>
+                </li>
+                {% for c in categories %}
+                    <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+                        <a style="color: black;" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div id="product_container">
+            <h1>
+                {% if category %}
+                    {{ category.name }}
+                {% else %}
+                    All Products
+                {% endif %}
+            </h1>
+
+            {% if products %}
+
+                {% for product in products %}
+                    <div class="product_card">
+                        <!-- <button class="wishlist_heart">&#10084;
+                            <a href="{% url 'wish:wish_add' product.id %}"></a>
+                        </button> -->
+
+                        <form action="{% url "wish:wish_add" product.id %}" method="post">
+                            {{ cart_product_form }}
+                            {% csrf_token %}
+                            <input type="submit" value="&#10084;" class="wishlist_heart">
+                        </form>
+
+                        <a href="{{ product.get_absolute_url }}">
+                            <img src="{{ product.image.image.url }}" alt="">
+
+                            <div class="product_info">
+                                <p><strong>{{ product.name }}</strong></p>
+                                <p>{{ "$" }}{{ product.price }}</p>
+                                <button onclick="location.href='{{ product.get_absolute_url }}'">View Details</button>
+                            </div>
+                        </a>
+
+                    </div>
+                {% endfor %}
+
+            {% else %}
+                <p>There are no products in the store.</p>
+            {% endif %}
+        </div>
+    </div>
+
+
+
+
+{% endblock content %}

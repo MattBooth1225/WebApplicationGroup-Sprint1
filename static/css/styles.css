@@ -69,9 +69,15 @@ h5 {
     -webkit-text-fill-color: transparent;
 }
 
+h6 {
+    font-size: 18pt;
+    background:black;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 /* Establishes how paragraph text will be displayed */
 p {
-    color: #d5ccff;
+    color: #e0e0e0;
 }
 
 /* Establishes how footer elements will be displayed */
@@ -109,9 +115,17 @@ input[type=text], input[type=email], input[type=password], select, textarea {
     resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
 }
 
+marquee {
+    font-size: 40px;
+    color: ghostwhite;
+    font-family: sans-serif;
+    height: 50px;
+    background: linear-gradient(to bottom right, #242424, #212121, #1f1f1f, #1c1c1c, #1a1a1a);
+}
+
 
 /****************************************************************************************************
-* Classes (Starts with '.')                                                                         *
+* General-Use Classes (not page-specific)                                                           *
 ****************************************************************************************************/
 
 /* Creates a class for indenting content by 1 tab (50px because I like that number) */
@@ -125,12 +139,12 @@ input[type=text], input[type=email], input[type=password], select, textarea {
 }
 
 /* Removes the border from rightmost menu elements */
-.navNoBorder {
+.nav_no_border {
     border: 0;
 }
 
 /* Creates a class for general link & submit buttons */
-.purpleButton {
+.purple_button {
     background-image: linear-gradient(to right, #5121ff 0%, #4d50eb 35%, #3D51FF 55%, #54B5FF 100%);
     margin: 50px auto;
     padding: 15px 45px;
@@ -147,7 +161,7 @@ input[type=text], input[type=email], input[type=password], select, textarea {
 }
 
 /* Changes the background gradient & text color of button when hovered over */
-.purpleButton:hover {
+.purple_button:hover {
     background-position: 100% 0;
     -o-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;
@@ -157,11 +171,11 @@ input[type=text], input[type=email], input[type=password], select, textarea {
 
 /* Container for form contents that establishes how they are displayed */
 .form_container {
+    display: block;
     width: 50%;
     min-width: 250px;
     margin: 50px auto;
     color: white;
-    display: block;
 }
 
 /* Establishes how form input & label elements are displayed */
@@ -177,6 +191,10 @@ input[type=text], input[type=email], input[type=password], select, textarea {
     color: black;
 }
 
+.form_container li {
+    margin: 0 0 15px 25px;
+}
+
 /* Adds extra padding to form hr elements */
 .form_container hr {
     margin-top: 100px;
@@ -184,21 +202,21 @@ input[type=text], input[type=email], input[type=password], select, textarea {
 }
 
 /****************************************************************************************************
-* ID Specific Elements (Starts with '#')                                                            *
+* Page-Specific Elements                                                                            *
 ****************************************************************************************************/
     /************************************************************
     * base.html Elements                                        *
     ************************************************************/
 
 /* Establishes how the site title is styled (contains site name & logo) */
-#siteTitle {
+#site_title {
     color: #7f6ae6;
     margin: 25px;
     display: block;
 }
 
 /* Establishes the position of the navigation menu bar */
-#navMenu {
+#nav_menu {
     width: 100%;
     top: 200px;
     margin: 50px auto;
@@ -209,15 +227,88 @@ input[type=text], input[type=email], input[type=password], select, textarea {
     white-space: nowrap;
 }
 
-@media only screen and (max-width:1200px) {
-  #navMenu {
-      top: 275px;
-  }
+#nav_menu #nav_menu_spacer {
+    width: 20vw;
+    height: 39px;
+    background-color: #4d50eb;
+}
+
+@media only screen and (max-width:1600px) {
+    #nav_menu {
+      top: 300px;
+    }
+
+    #nav_menu #nav_menu_spacer {
+        width: 10vw;
+    }
+}
+
+#nav_menu img {
+    width: 25px;
+    margin-top: -2px;
+}
+
+#nav_menu .search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 39px;
+    padding: 10px 10px;
+}
+
+#nav_menu .search:hover {
+    background-color: #4d50eb;
+}
+
+#nav_menu .search form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#nav_menu .search input[type=search] {
+    height: 25px;
+    padding: 5px;
+    color: #000000;
+    background-color: rgba(255, 255, 255, 85%);
+    border: 0.5px solid #1e1e1e;
+    border-radius: 5px;
+}
+
+#nav_menu .search button {
+    background-color: transparent;
+    border: none;
+}
+
+#nav_menu .search button img {
+    margin: 3px 0 0 10px;
+}
+
+#nav_menu .search button:hover img:last-child {
+    display: block;
+    margin: 0 0 0 10px;
+}
+
+#nav_menu a img:last-child, #nav_menu .search img:last-child {
+    display: none;
+}
+
+#nav_menu a:hover img:last-child {
+    display: block;
+    margin: -2px auto 0;
+}
+
+#nav_menu a:hover img:first-child, #nav_menu .search button:hover img:first-child {
+    display: none;
+}
+
+#nav_menu a {
+    height: 39px;
 }
 
             /* Level 1 of Nav Bar */
 /* Establishes the nav bar's list elements are displayed */
-#navMenu ul {
+#nav_menu ul {
     z-index: 1;
     margin: 0;
     padding: 0;
@@ -226,15 +317,16 @@ input[type=text], input[type=email], input[type=password], select, textarea {
 }
 
 /* Displays sub-menu of nav bar element when hovered over */
-#navMenu ul:hover {
+#nav_menu ul:hover {
     overflow: visible;
 }
 
 /* Establishes how the nav bar's list elements are styled */
-#navMenu li {
+#nav_menu li {
     position: relative;
     float: left;
     text-align: center;
+    vertical-align: center;
     background-color: #4d50eb;
     border-width: 0 1px 0 0;
     border-color: rgba(0, 0, 0, 0.85);
@@ -242,53 +334,53 @@ input[type=text], input[type=email], input[type=password], select, textarea {
 }
 
 /* Changes the background color of a nav bar element when hovered over */
-#navMenu li:hover {
+#nav_menu li:hover {
     background-color: #5565fa;
 }
 
 /* Establishes how the nav bar's link elements are styled */
-#navMenu a {
+#nav_menu a {
     display: block;
     padding: 10px 20px;
-    color: #1a1a1a;
+    color: #000000;
     font-weight: bold;
     text-decoration: none;
 }
 
 /* Changes the text color of nav bar links when hovered over */
-#navMenu a:hover{
+#nav_menu a:hover{
     color: #c7cdd9;
 }
 
             /* Level 2 of Nav Bar */
 /* Establishes the nav bar's sub-menu list elements are displayed */
-#navMenu ul ul {
+#nav_menu ul ul {
     max-height: 0;
     transition: max-height 1s;
 }
 
 /* Establishes the nav bar's sub-menu list elements are displayed when hovered over */
-#navMenu ul li:hover ul {
+#nav_menu ul li:hover ul {
     max-height: 999px;
 }
 
 /* Establishes the nav bar's sub-menu list elements are styled */
-#navMenu ul ul li {
+#nav_menu ul ul li {
     float: none;
     background-color: #5565fa;
     border: 0;
 }
 
 /* Changes the background color of a nav bar sub-menu element when hovered over */
-#navMenu ul ul li:hover {
+#nav_menu ul ul li:hover {
     background-color: #6685ff;
 }
 
 /* This container holds all of the content displayed in the body of the page
    (does not include: navigation bar, site header [logo & title])
 */
-#pageContent {
-    margin: 125px 25px 25px 25px;
+#page_content {
+    margin: 125px 75px 25px 75px;
     display: block;
 }
 
@@ -299,7 +391,7 @@ input[type=text], input[type=email], input[type=password], select, textarea {
     ************************************************************/
 
 /* This container holds the gallery header & the gallery carousel + carousel controls */
-#galleryContainer {
+#index_display_container {
     width: 75%;
     min-width: 500px;
     margin: 100px auto 50px auto;
@@ -494,41 +586,60 @@ input[type=text], input[type=email], input[type=password], select, textarea {
     width: 6px;
 }
 
-/*
-#galleryContainer #galleryElements .galleryButton button {
-    background: linear-gradient(to bottom right, #54B5FF 0%, #3D51FF 35%, #4d50eb 55%, #5121ff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 72px;
-    font-weight: bold;
-    border: none;
-}
-
-#galleryContainer #galleryElements .galleryButton button:hover {
-    background: linear-gradient(to bottom right, #54B5FF, #3D51FF);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    cursor: pointer;
-}
- */
-
 
     /************************************************************
-    * product_list.html & wishlist.html Elements                *
+    * all_products.html & wishlist.html Elements                *
     ************************************************************/
 
-/* Container for the contents of a store page */
-.product_container {
-    display: block;
+/* Holds both the 'Categories' sidebar & the container for product cards */
+#product_page_container {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* The container that holds the 'Categories' side bar's contents */
+#product_category_sidebar {
+    display: inline-block;
+    float: left;
+    width: 200px;
+    height: fit-content;
+    margin: 25px 50px;
+    font-family: "Roboto Light";
+    color: black;
+    padding: 25px;
+    background-color: #4d50eb;
+}
+ /* Adds some space below the 'Categories' side bar title */
+#product_category_sidebar h3 {
+    margin-bottom: 25px;
+}
+
+/* Slightly indents the list on the 'Categories' sidebar */
+#product_category_sidebar li {
+    margin-left: 25px;
+}
+
+/* Container for the product cards displayed on a store page */
+#product_container {
+    display: inline-block;
+    float: left;
     padding: 50px;
-    width: 90%;
-    margin: auto;
+    width: 75%;
+    min-width: 900px;
+}
+
+/* Adds some space below the product page's title */
+#product_container h1 {
+    margin-bottom: 50px;
 }
 
 /* Establishes how products are displayed on shopping pages */
 .product_card {
     width: 300px;
-    height: 400px;
+    height: 450px;
     position: relative;
     display: inline-block;
     margin: 25px;
@@ -556,22 +667,26 @@ input[type=text], input[type=email], input[type=password], select, textarea {
     margin: 10px auto;
 }
 
-.product_card .product_info button {
+.product_card .product_info button, .product_card .product_info .remove_button {
     background-image: linear-gradient(to right, #5121ff 0%, #4d50eb 35%, #3D51FF 55%, #54B5FF 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 25px;
     margin: 15px auto 0 auto;
     padding: 5px 10px;
     text-align: center;
-    font-weight: bolder;
+    font-weight: bold;
     font-size: 10pt;
-    color: #1a1a1a;
+    color: #000000;
     transition: 0.5s;
     background-size: 200% auto;
     border: 0;
     border-radius: 10px;
-    display: block;
 }
 
-.product_card .product_info button:hover {
+.product_card .product_info button:hover, .product_card .product_info .remove_button:hover {
     background-position: 100% 0;
     -o-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;
@@ -597,6 +712,17 @@ input[type=text], input[type=email], input[type=password], select, textarea {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     cursor: pointer;
+}
+
+#wishlist_container {
+    display: inline-block;
+    padding: 50px;
+    width: 90%;
+    min-width: 900px;
+}
+
+#wishlist_container h1 {
+    margin-bottom: 50px;
 }
 
 
@@ -637,7 +763,7 @@ input[type=text], input[type=email], input[type=password], select, textarea {
 
 
     /************************************************************
-    * cart_details.html Elements                                *
+    * cart_details.html &  Elements                             *
     ************************************************************/
 
 /* */
@@ -648,7 +774,35 @@ input[type=text], input[type=email], input[type=password], select, textarea {
 }
 
 .cart {
+    display: block;
     background-color: rgba(235, 235, 235, 85%);
+}
+
+.cart img {
+    width: 100px;
+}
+
+.cart input[type=submit] {
+    background-image: linear-gradient(to right, #5121ff 0%, #4d50eb 35%, #3D51FF 55%, #54B5FF 100%);
+    margin: 15px auto 0 auto;
+    padding: 5px 10px;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 10pt;
+    color: #000000;
+    transition: 0.5s;
+    background-size: 200% auto;
+    border: 0;
+    border-radius: 10px;
+    display: block;
+}
+
+.cart input[type=submit]:hover {
+    background-position: 100% 0;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    color: #c7cdd9;
 }
 
 .cart th {
@@ -675,6 +829,8 @@ input[type=text], input[type=email], input[type=password], select, textarea {
 .total td {
     padding: 0 50px 50px;
 }
+
+
 
 
     /************************************************************
@@ -707,19 +863,11 @@ input[type=text], input[type=email], input[type=password], select, textarea {
     * user_profile_settings.html Elements                       *
     ************************************************************/
 
-/* Styles User Settings and Profile Page */
-#user_settings {
-    width: 50%;
-    min-width: 500px;
-    margin: 100px auto;
-    color: white;
-    display: block;
-}
-
 /* Establishes the position of the navigation menu bar */
-#userSettingsNav {
+#user_settings_nav {
     width: 100%;
     display: flex;
+    margin: 50px 0 100px 0;
     justify-content: center;
     position: relative;
     overflow: hidden;
@@ -728,7 +876,7 @@ input[type=text], input[type=email], input[type=password], select, textarea {
 
 /* Level 1 of Nav Bar */
 /* Establishes the nav bar's list elements are displayed */
-#userSettingsNav ul {
+#user_settings_nav ul {
     z-index: 1;
     margin: 0;
     padding: 0;
@@ -737,12 +885,12 @@ input[type=text], input[type=email], input[type=password], select, textarea {
 }
 
 /* Displays sub-menu of nav bar element when hovered over */
-#userSettingsNav ul:hover {
+#user_settings_nav ul:hover {
     overflow: visible;
 }
 
 /* Establishes how the nav bar's list elements are styled */
-#userSettingsNav li {
+#user_settings_nav li {
     position: relative;
     float: left;
     text-align: center;
@@ -753,12 +901,12 @@ input[type=text], input[type=email], input[type=password], select, textarea {
 }
 
 /* Changes the background color of a nav bar element when hovered over */
-#userSettingsNav li:hover {
+#user_settings_nav li:hover {
     background-color: #5c95ff;
 }
 
 /* Establishes how the nav bar's link elements are styled */
-#userSettingsNav a {
+#user_settings_nav a {
     display: block;
     padding: 10px 20px;
     color: #1a1a1a;
@@ -767,16 +915,42 @@ input[type=text], input[type=email], input[type=password], select, textarea {
 }
 
 /* Changes the text color of nav bar links when hovered over */
-#userSettingsNav a:hover{
+#user_settings_nav a:hover{
     color: #c7cdd9;
 }
 
+.settings_table_container {
+    display: flex;
+    justify-content: center;
+}
+
 /* Formatting for Payment Information Table */
-.payment_table {
-    width: 75%;
+.settings_table {
+    display: inline-block;
+    margin: 50px auto;
     alignment: center;
     border-collapse: collapse;
     border: 4px #4d50eb;
+    background-color: rgba(235, 235, 235, 85%);
+}
+
+.settings_table th {
+    padding: 25px 50px 10px 50px;
+    color: black;
+}
+
+.settings_table td {
+    padding: 15px 50px;
+    color: black;
+}
+
+.settings_table hr {
+    height: 1px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #1c1c1c !important;
+    color: #1c1c1c;
+    border-width: 0;
 }
 
 /* Formatting for the text box in Contact Us */
@@ -789,4 +963,64 @@ input[type=text], input[type=email], input[type=password], select, textarea {
   border-radius: 4px;
   background-color: #f8f8f8;
   resize: none;
+}
+
+
+
+    /************************************************************
+    * User Registration / Password Reset Elements               *
+    ************************************************************/
+
+/* */
+.pass_reset_link {
+    display: block;
+    margin: 100px auto;
+    text-align: center;
+}
+
+.pass_reset_link a {
+    color: #4d50eb;
+    font-weight: bold;
+}
+
+.pass_reset_link a:hover {
+    color: #4787ff;
+}
+
+/* Container for form contents that establishes how they are displayed */
+.pass_reset_form_container {
+    display: block;
+    width: 50%;
+    min-width: 250px;
+    margin: -100px auto 150px auto;
+    color: white;
+}
+
+/* Adds extra padding to form hr elements */
+.pass_reset_form_container hr {
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.form_contents {
+    width: 50%;
+    display: block;
+    margin: 50px auto;
+}
+
+/* Establishes how form input & label elements are displayed */
+.form_contents input, label{
+    display: block;
+}
+/* Adds spacing between form fields */
+.form_contents label {
+    margin-top: 50px;
+}
+
+.form_contents input, textarea {
+    color: black;
+}
+
+.form_contents li {
+    margin: 0 0 15px 25px;
 }

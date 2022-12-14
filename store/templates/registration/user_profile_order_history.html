@@ -5,28 +5,46 @@
 
     <h1>User Settings</h1>
 
-    <div id="userSettingsNav">
+    <div id="user_settings_nav">
         <ul>
             <li><a href="{% url 'store:user-profile-settings' %}">Account Settings</a></li>
             <li><a href="{% url 'store:user-profile-shipping-address' %}">Shipping Address</a></li>
             <li><a href="{% url 'store:user-profile-payment-methods' %}">Payment Methods</a></li>
-            <li class="navNoBorder"><a href="{% url 'store:user-profile-order-history' %}">Order History</a></li>
+            <!-- <li class="navNoBorder"><a href="{#% url 'store:user-profile-order-history' %#}">Order History</a></li> -->
         </ul>
     </div>
 
     <div class="form_container">
-        <h3>Order History</h3>
-        <table class="payment_table">
-            <thead>
-            <tr>
-                <th>Order Number</th>
-                <th>Shipping Address</th>
-                <th>Payment Methods</th>
-                <th>Shipping Status</th>
-                <th>Total</th>
-            </tr>
-            </thead>
-        </table>
+        <h2>Order History</h2>
+
+        <div class="settings_table_container">
+            <table class="settings_table">
+                <tr>
+                    <th>Order Number</th>
+                    <th>Shipping Address</th>
+                    <th>Payment Method</th>
+                    <th>Shipping Status</th>
+                    <th>Total</th>
+                </tr>
+
+                <tr>
+                    <td colspan="5">
+                        <hr>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>[placeholder]</td>
+                    <td>[placeholder]</td>
+                    <td>[placeholder]</td>
+                    <td>[placeholder]</td>
+                    <td>[placeholder]</td>
+                </tr>
+            </table>
+        </div>
+
+
+
     </div>
 
 {% endblock content %}

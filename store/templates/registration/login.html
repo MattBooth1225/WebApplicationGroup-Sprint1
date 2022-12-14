@@ -16,7 +16,7 @@
     {% endif %}
 
     <div class="form_container">
-        <h2>Login</h2>
+        <h2>Log In</h2>
 
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
@@ -29,9 +29,14 @@
                 {{ form.password }}
             </div>
 
-            <input type="submit" value="login" class="purpleButton">
+            <input type="submit" value="Log In" class="purple_button">
             <input type="hidden" name="next" value="{{ next }}">
         </form>
+
+        <div class="pass_reset_link">
+            <a href="{% url 'password_reset' %}">Forgot password?</a>
+        </div>
+
     </div>
 
 

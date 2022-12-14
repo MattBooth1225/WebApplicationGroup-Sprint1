@@ -5,26 +5,34 @@
 
     <h1>User Settings</h1>
 
-    <div id="userSettingsNav">
+    <div id="user_settings_nav">
         <ul>
             <li><a href="{% url 'store:user-profile-settings' %}">Account Settings</a></li>
             <li><a href="{% url 'store:user-profile-shipping-address' %}">Shipping Address</a></li>
             <li><a href="{% url 'store:user-profile-payment-methods' %}">Payment Methods</a></li>
-            <li class="navNoBorder"><a href="{% url 'store:user-profile-order-history' %}">Order History</a></li>
+            <!-- <li class="navNoBorder"><a href="{#% url 'store:user-profile-order-history' %#}">Order History</a></li> -->
         </ul>
     </div>
 
     <div class="form_container">
-        <h3>Payment Methods</h3>
-        <table class="payment_table">
-            <thead>
-            <tr>
-                <th>Card Name</th>
-                <th>Expires</th>
-                <th>Number</th>
-            </tr>
-            </thead>
-        </table>
+        <h2>Payment Methods</h2>
+        <div class="form_container">
+        <form action="" method="post" class="form_contents">
+            {% csrf_token %}
+
+            <label for="cardnum">Card Number:</label>
+            <input type="text" id="cardnum" name="cardnum" placeholder="Your card numbers here...">
+
+            <label for="exp">Expiration Date:</label>
+            <input type="text" id="exp" name="exp" placeholder="Expiration Date">
+
+            <label for="security">Security Code:</label>
+            <input type="text" id="security" name="security" placeholder="Security code here...">
+
+            <input type="submit" value="Submit" class="purple_button">
+        </form>
+        </div>
+
     </div>
 
 {% endblock content %}

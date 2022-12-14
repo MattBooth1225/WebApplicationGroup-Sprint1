@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Your Wish List</h1>
+
+    <div id="wishlist_container">
+
+        {% if wish %}
+
+            {% for item in wish %}
+                {% with product=item.product %}
+
+                    <div class="product_card">
+                        <button class="wishlist_heart">&#10084;
+
+                        </button>
+
+                        <a href="{{ product.get_absolute_url }}">
+                            <!-- Replace placeholder image w/ real product image link -->
+                            <img src="{{ product.image.image.url }}" alt="">
+
+                            <div class="product_info">
+                                <p><strong>{{ product.name }}</strong></p>
+                                <p>{{ "$" }}{{ product.price }}</p>
+                                <button onclick="location.href='{{ product.get_absolute_url }}'">View Details</button>
+                                <a href="{% url "wish:wish_remove" product.id %}" class="remove_button">Remove</a>
+                            </div>
+
+                        </a>
+
+                    </div>
+                {% endwith %}
+            {% endfor %}
+
+        {% else %}
+            <p>You have no products in your wish list.</p>
+        {% endif %}
+
+    </div>
+
+{% endblock content %}

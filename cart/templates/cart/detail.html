@@ -29,19 +29,24 @@
                     <tr>
                         <td>
                             <a href="{{ product.get_absolute_url }}">
-                                <!--Eventually image link will go here for product-->
+                                <img src="{{ product.image.image.url }}" alt="">
                             </a>
                         </td>
                         <td>{{ product.name }}</td>
                         <td class="cart_option_button">
                             <form action="{% url "cart:cart_add" product.id %}" method="post">
                                 {{ item.update_quantity_form.quantity }}
-                                {{ item.update_quantity_form.update }}
+                                {{ item.update_quantity_form.override }}
                                 <input type="submit" value="Update">
                                 {% csrf_token %}
                             </form>
                         </td>
-                        <td class="cart_option_button"><a href="{% url "cart:cart_remove" product.id %}">Remove</a></td>
+                        <td>
+                            <form action="{% url "cart:cart_remove" product.id %}" method="post">
+                                <input type="submit" value="Remove">
+                                {% csrf_token %}
+                            </form>
+                        </td>
                         <td class="num">${{ item.price }}</td>
                         <td class="num">${{ item.total_price }}</td>
                     </tr>
@@ -64,5 +69,9 @@
         </table>
 
     </div>
+
+<button class="purple_button" onclick="location.href='{% url "orders:order_create" %}'">
+        Checkout
+    </button>
 
 {% endblock %}

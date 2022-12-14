@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+    <div id="product_page_container">
+        <div id="product_container">
+
+            {% if searched %}
+                <h1>You searched for '{{ searched }}'</h1>
+
+                {% if search_results %}
+
+                    {% for product in search_results %}
+                        <div class="product_card">
+                            <!-- <button class="wishlist_heart">&#10084;
+                                <a href="{% url 'wish:wish_add' product.id %}"></a>
+                            </button> -->
+
+                            <form action="{% url "wish:wish_add" product.id %}" method="post">
+                                {{ cart_product_form }}
+                                {% csrf_token %}
+                                <input type="submit" value="&#10084;" class="wishlist_heart">
+                            </form>
+
+                            <a href="{{ product.get_absolute_url }}">
+                                <img src="{{ product.image.image.url }}" alt="">
+
+                                <div class="product_info">
+                                    <p><strong>{{ product.name }}</strong></p>
+                                    <p>{{ "$" }}{{ product.price }}</p>
+                                    <button onclick="location.href='{{ product.get_absolute_url }}'">View Details</button>
+                                </div>
+                            </a>
+
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+            {% else %}
+                <h1>You have not entered any search criteria.</h1>
+            {% endif %}
+
+        </div>
+    </div>
+
+
+
+
+{% endblock content %}

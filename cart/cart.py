@@ -62,7 +62,7 @@ class Cart(object):
         """
         Remove a product from the cart.
         """
-        product_id = int(product.id)  # changed from string to int
+        product_id = str(product.id)
         if product_id in self.cart:
             del self.cart[product_id]
             self.save()

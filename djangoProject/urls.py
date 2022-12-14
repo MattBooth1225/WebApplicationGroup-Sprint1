@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth import views as auth_views
 
 from django.urls import include
 from django.views.generic import RedirectView
@@ -25,10 +26,24 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('cart/', include('cart.urls', namespace='cart')),
-    path('store/', include('store.urls')),
-    path("register/", views.register, name="register"),
     path('', include("django.contrib.auth.urls")),
     path('', RedirectView.as_view(url='store/')),
+
+    path('store/', include('store.urls')),
+    path('cart/', include('cart.urls', namespace='cart')),
+    path('wish/', include('wishlist.urls', namespace='wish')),
+
+    path('orders/', include('orders.urls', namespace='orders')),
+    path('store/', include('store.urls')),
+
+    path("register/", views.register, name="register"),
+
+    path('reset_password/', auth_views.PasswordResetView.as_view(template_name='password/password_reset.html'), name="reset_password"),
+    path('password_reset_sent/', auth_views.PasswordResetDoneView.as_view(template_name='password/password_reset_done.html'), name="password_reset_done"),
+    path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name='password/password_reset_confirm.html'), name="password_reset_confirm"),
+    path('password_reset_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='password/password_reset_complete.html'), name="password_reset_complete"),
 ]
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

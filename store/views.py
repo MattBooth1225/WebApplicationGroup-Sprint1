@@ -1,11 +1,8 @@
 from django.views import generic
-from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from .models import *
 from .forms import *
-from django.core.mail import send_mail, BadHeaderError
 from cart.forms import CartAddProductForm
 
 
@@ -19,6 +16,14 @@ def index(request):
     context = {
         'num_products': num_products,
         'num_instances': num_instances,
+        'images': [
+            'SOAD_Steal_This_Album_CD.jpg',
+            'Beartooth_Disgusting_Shirt.JPG',
+            'GreenDay_American_Idiot_CD.jpg',
+            'MCR_Black_Parade_Shirt.jpg',
+            'MCR_Three_Cheers_Shirt.jpg',
+            'Northernaire_Vinyl.jpg',
+        ],
     }
 
     return render(request, 'index.html', context=context)
@@ -31,6 +36,7 @@ class AllProductsListView(generic.ListView):
 class ProductDetailView(generic.DetailView):
     model = Product
 
+
 def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
@@ -39,21 +45,20 @@ def product_list(request, category_slug=None):
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
     return render(request,
-                  'shop/product/list.html',
+                  'store/all_products.html',
                   {'category': category,
                    'categories': categories,
                    'products': products})
 
-def music_list(request):
-    product = Product.objects.filter()
-    return render(request, 'store/all_music_list.html',
-                  {'all-music': product})
 
+def search_products(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        search_results = Product.objects.filter(name__contains=searched)
 
-def merch_list(request):
-    product = Product.objects.filter()
-    return render(request, 'store/all_merch_list.html',
-                  {'all-merch': product})
+        return render(request, 'store/search_products.html', {'searched': searched, 'search_results': search_results})
+    else:
+        return render(request, 'store/search_products.html', {})
 
 
 def contact_us(request):
@@ -77,12 +82,6 @@ def sale_items(request):
                   {'sale-items': product})
 
 
-def wish_list(request):
-    product = Product.objects.filter()
-    return render(request, 'store/wish_list.html',
-                  {'wish-list': product})
-
-
 # --------------------------------------------------
 #  User Account Views
 # --------------------------------------------------
@@ -94,42 +93,108 @@ def register(response):
             new_user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'], )
             login(response, new_user)
 
-        return redirect("/store")
+        return redirect("/music")
     else:
         form = RegisterForm()
 
     return render(response, "registration/user_registration.html", {"form": form})
 
 
-# I want to change this to import the user instead of the product but I am not sure what pycharm calls the user class
 def user_profile_settings(request):
+    if request.method == 'POST':
+        current_user = request.user
+        try:
+            user_profile = Profile.objects.get(pk=current_user)
+        except:
+            user_profile = Profile()
+        email = request.POST.get('email')
+        fname = request.POST.get('fname')
+        lname = request.POST.get('lname')
+        user_profile.user = current_user
+        user_profile.profile_email = email
+        user_profile.profile_fname = fname
+        user_profile.profile_lname = lname
+        try:
+            user_profile.save()
+        except:
+            user_profile.save(force_update=True)
+
     profile = Profile.objects.filter()
     return render(request, 'registration/user_profile_settings.html',
                   {'user-profile-settings': profile})
 
 
+# def user_profile_valid(self, form):
+# form.instance.user = self.kwargs.get('pk')
+# return super()
+
 def user_profile_shipping_address(request):
+    if request.method == 'POST':
+        current_user = request.user
+        try:
+            user_profile = Profile.objects.get(pk=current_user)
+        except:
+            user_profile = Profile()
+        profile_address1 = request.POST.get('address1')
+        profile_address2 = request.POST.get('address2')
+        profile_city = request.POST.get('city')
+        profile_state = request.POST.get('state')
+        profile_zip = request.POST.get('zipcode')
+        user_profile.user = current_user
+        user_profile.profile_addressMain = profile_address1
+        user_profile.profile_addressSecondary = profile_address2
+        user_profile.profile_city = profile_city
+        user_profile.profile_state = profile_state
+        user_profile.profile_zipcode = profile_zip
+        try:
+            user_profile.save()
+        except:
+            user_profile.save(force_update=True)
+
     profile = Profile.objects.filter()
     return render(request, 'registration/user_profile_shipping_address.html',
                   {'user-profile-shipping-address': profile})
 
 
+# working on payment method view here...
+
 def user_profile_payment_methods(request):
+    if request.method == 'POST':
+        current_user = request.user
+        try:
+            user_profile = Profile.objects.get(pk=current_user)
+        except:
+            user_profile = Profile()
+        profile_cardnum = request.POST.get('cardnum')
+        profile_exp = request.POST.get('exp')
+        profile_security = request.POST.get('security')
+
+        user_profile.user = current_user
+
+        user_profile.profile_cardnum = profile_cardnum
+        user_profile.profile_sec_code = profile_security
+        user_profile.profile_exp_date = profile_exp
+
+        try:
+            user_profile.save()
+        except:
+            user_profile.save(force_update=True)
+
     profile = Profile.objects.filter()
     return render(request, 'registration/user_profile_payment_methods.html',
-                  {'user-profile-payment-methods': profile})
+                  {'user-profile-payment': profile})
+
+
+# def user_profile_payment_methods(request):
+# profile = Profile.objects.filter()
+# return render(request, 'registration/user_profile_payment_methods.html',
+# {'user-profile-payment-methods': profile})
 
 
 def user_profile_order_history(request):
     profile = Profile.objects.filter()
     return render(request, 'registration/user_profile_order_history.html',
                   {'user-profile-order-history': profile})
-
-
-def shopping_cart(request):
-    product = Product.objects.filter()
-    return render(request, 'store/shopping_cart.html',
-                  {'shopping-cart': product})
 
 
 def product_detail(request, id, slug):
@@ -139,3 +204,7 @@ def product_detail(request, id, slug):
                   {'product': product, 'cart_product_form': cart_product_form})
 
 
+def merch(request, slug):
+    category = get_object_or_404(Category, slug=merch)
+    return render(request, 'store/all_merch_list.html',
+                  {'category': category})
